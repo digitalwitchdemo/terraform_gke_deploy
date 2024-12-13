@@ -7,6 +7,6 @@ terraform {
   }
 }
 
-provider "google" {
-  # Configuration options
-}
+# provider "google" {
+#   # Configuration options
+# }

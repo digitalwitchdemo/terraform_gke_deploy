@@ -4,7 +4,7 @@ terraform {
     organization = "DigitalWitchng" 
 
     workspaces { 
-      name = "gke_deployment" 
+      name = "google_gke_deploy" 
     } 
   } 
 }

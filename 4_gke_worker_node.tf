@@ -1,7 +1,11 @@
 # Create Service Account
 #========================
-resource "google_service_account" "kubernetes" {
-  account_id = "kubernetes"
+# resource "google_service_account" "kubernetes" {
+#   account_id = "kubernetes"
+# }
+
+data "google_service_accounts" "kubernetes" {
+  project = "terraform-auto"
 }
 
 # Create worker node
@@ -24,7 +28,7 @@ resource "google_container_node_pool" "general" {
       role = "general"
     }
 
-    service_account = google_service_account.kubernetes.email
+    service_account = data.google_service_account.kubernetes.email
     oauth_scopes = [
       "https://www.googleapis.com/auth/cloud-platform"
     ]
@@ -60,7 +64,7 @@ resource "google_container_node_pool" "spot" {
       effect = "NO_SCHEDULE"
     }
 
-    service_account = google_service_account.kubernetes.email
+    service_account = data.google_service_account.kubernetes.email
     oauth_scopes = [
       "https://www.googleapis.com/auth/cloud-platform"
     ]

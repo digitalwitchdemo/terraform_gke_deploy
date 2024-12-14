@@ -4,9 +4,10 @@
 #   account_id = "kubernetes"
 # }
 
-data "google_service_accounts" "kubernetes" {
-  project = "terraform-auto"
-}
+# data "google_service_accounts" "kubernetes" {
+#   project = "terraform-auto"
+#   display_name = "terraform-auto"
+# }
 
 # Create worker node
 #======================
@@ -28,7 +29,7 @@ resource "google_container_node_pool" "general" {
       role = "general"
     }
 
-    service_account = data.google_service_account.kubernetes.email
+    service_account = "terraform-auto@host-project-419903.iam.gserviceaccount.com"
     oauth_scopes = [
       "https://www.googleapis.com/auth/cloud-platform"
     ]
@@ -64,7 +65,7 @@ resource "google_container_node_pool" "spot" {
       effect = "NO_SCHEDULE"
     }
 
-    service_account = data.google_service_account.kubernetes.email
+    service_account = "terraform-auto@host-project-419903.iam.gserviceaccount.com"
     oauth_scopes = [
       "https://www.googleapis.com/auth/cloud-platform"
     ]

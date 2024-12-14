@@ -4,7 +4,7 @@ terraform {
     organization = "DigitalWitchng" 
 
     workspaces { 
-      name = "google_gke_deploy" 
+      name = "kubernetes-google-gke" 
     } 
   } 
 }

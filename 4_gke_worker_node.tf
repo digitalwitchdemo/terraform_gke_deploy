@@ -4,12 +4,8 @@ resource "google_service_account" "kubernetes" {
   account_id = "kubernetes"
 }
 
-data "google_service_accounts" "kubernetes" {
-  project = "terraform-auto"
-}
-
-# Create worker node
-#======================
+# Create worker node pool one
+#============================
 resource "google_container_node_pool" "general" {
   name       = "general"
   cluster    = google_container_cluster.primary.id
@@ -35,7 +31,7 @@ resource "google_container_node_pool" "general" {
   }
 }
 
-# Create Node Pool
+# Create worker Node Pool two
 resource "google_container_node_pool" "spot" {
   name    = "spot"
   cluster = google_container_cluster.primary.id
@@ -56,12 +52,6 @@ resource "google_container_node_pool" "spot" {
 
     labels = {
       team = "devops"
-    }
-
-    taint {
-      key    = "instance_type"
-      value  = "spot"
-      effect = "NO_SCHEDULE"
     }
 
     service_account = google_service_account.kubernetes.email

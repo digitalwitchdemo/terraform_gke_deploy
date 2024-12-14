@@ -1,15 +1,3 @@
-# Enable the compute api
-# ======================
-resource "google_project_service" "compute" {
-  service = "compute.googleapis.com"
-}
-
-# Enable the container api
-# ========================
-resource "google_project_service" "container" {
-  service = "container.googleapis.com"
-}
-
 # Create a vpc
 #===============
 resource "google_compute_network" "main" {
@@ -18,11 +6,6 @@ resource "google_compute_network" "main" {
   auto_create_subnetworks         = false
   mtu                             = 1460
   delete_default_routes_on_create = false
-
-  depends_on = [
-    google_project_service.compute,
-    google_project_service.container
-  ]
 }
 
 # Create Subnet
@@ -78,8 +61,6 @@ resource "google_compute_address" "nat" {
   name         = "nat"
   address_type = "EXTERNAL"
   network_tier = "PREMIUM"
-
-  depends_on = [google_project_service.compute]
 }
 
 

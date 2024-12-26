@@ -73,3 +73,9 @@ jobs:
       run: |
           kubectl apply -f mongo.yaml
           kubectl get pod 
+
+    - name: Deploy CertManager 
+      run: |
+       kubectl create namespace cert-manager
+       kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.16.2/cert-manager.yaml
+       kubectl get pod -n cert-manager

@@ -54,11 +54,8 @@ jobs:
       run: |
         sudo apt-get update 
         sudo apt-get install apt-transport-https ca-certificates gnupg curl -y
-
         curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo gpg --dearmor -o /usr/share/keyrings/cloud.google.gpg
-
         echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main" | sudo tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
-
         sudo apt-get update && sudo apt-get install google-cloud-cli -y
         sudo apt-get install google-cloud-cli-gke-gcloud-auth-plugin -y
 
@@ -66,17 +63,17 @@ jobs:
 
     - name: Configure kubectl for GKE
       run: |
-          
           gcloud container clusters get-credentials dev-cluster --zone us-central1-a --project ${{ secrets.GCP_PROJECT_ID }}
+
 
     - name: Deploy MongoDB to Kubernetes
       run: |
-          kubectl apply -f mongo.yaml
+          kubectl delete -f mongo.yaml
           kubectl get pod 
 
     - name: Deploy CertManager 
       run: |
-       kubectl create namespace cert-manager
-       kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.16.2/cert-manager.yaml
+       #kubectl create namespace cert-manager
+       #kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.16.2/cert-manager.yaml
        kubectl get pod -n cert-manager
        kubectl apply -f clusterissuer.yaml

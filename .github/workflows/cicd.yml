@@ -54,7 +54,9 @@ jobs:
       run: |
         sudo apt-get update
         sudo gcloud components list
-        
+        sudo gcloud components update
+
+        sudo gcloud components install gke-gcloud-auth-plugin
 
     - name: Configure kubectl for GKE
       run: |

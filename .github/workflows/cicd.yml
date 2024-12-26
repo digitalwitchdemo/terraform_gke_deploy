@@ -66,11 +66,6 @@ jobs:
           gcloud container clusters get-credentials dev-cluster --zone us-central1-a --project ${{ secrets.GCP_PROJECT_ID }}
 
 
-    - name: Deploy MongoDB to Kubernetes
-      run: |
-          kubectl delete -f mongo.yaml
-          kubectl get pod 
-
     - name: Deploy CertManager 
       run: |
        #kubectl create namespace cert-manager

@@ -50,6 +50,8 @@ jobs:
     # - name: Terraform Destroy
     #   run: terraform destroy -auto-approve -input=false -var="project_id=${{ secrets.GCP_PROJECT_ID }}" -var="region=us-central1"
   
+
+
     - name: Install gke-gcloud-auth-plugin
       run: |
         sudo apt-get update 
@@ -73,10 +75,17 @@ jobs:
        kubectl get pod -n cert-manager
        kubectl apply -f clusterissuer.yaml
 
+    - name: Install Helm Before Deploying with Helm
+      run: |
+        curl https://baltocdn.com/helm/signing.asc | gpg --dearmor | sudo tee /usr/share/keyrings/helm.gpg > /dev/null
+        sudo apt-get install apt-transport-https --yes
+        echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/helm.gpg] https://baltocdn.com/helm/stable/debian/ all main" | sudo tee /etc/apt/sources.list.d/helm-stable-debian.list
+        sudo apt-get update
+        sudo apt-get install helm -y
+
 
     - name: Deploy Nginx-Controller
       run: |
-        helm -v
-      #  helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
-      #  kubectl create namespace ingress-nginx
-      #  helm install ingress-nginx ingress-nginx/ingress-nginx -n ingress-nginx
+        helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
+        kubectl create namespace ingress-nginx
+        helm install ingress-nginx ingress-nginx/ingress-nginx -n ingress-nginx

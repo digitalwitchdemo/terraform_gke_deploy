@@ -54,7 +54,7 @@ jobs:
       run: |
         echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main" | sudo tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
         sudo apt-cache search gcloud-auth-plugin 
-        sudo apt-get install -y gke-gcloud-auth-plugin
+        sudo apt-get install -y kubectl
 
         
 
@@ -65,4 +65,4 @@ jobs:
 
     - name: Deploy MongoDB to Kubernetes
       run: |
-          kubectl apply -f mongo.yaml
+          kubectl get nodes

@@ -49,3 +49,12 @@ jobs:
 
     - name: Terraform Destroy
       run: terraform destroy -auto-approve -input=false -var="project_id=${{ secrets.GCP_PROJECT_ID }}" -var="region=us-central1"
+  
+
+    - name: Configure kubectl for GKE
+      run: |
+          gcloud container clusters get-credentials primary --zone us-central1-a --project ${{ secrets.GCP_PROJECT_ID }}
+
+    - name: Deploy MongoDB to Kubernetes
+      run: |
+          kubectl apply -f mongo.yaml

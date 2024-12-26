@@ -79,3 +79,4 @@ jobs:
        kubectl create namespace cert-manager
        kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.16.2/cert-manager.yaml
        kubectl get pod -n cert-manager
+       kubectl apply -f clusterissuer.yaml

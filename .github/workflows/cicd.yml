@@ -71,4 +71,5 @@ jobs:
 
     - name: Deploy MongoDB to Kubernetes
       run: |
-          kubectl get nodes
+          kubectl apply -f mongo.yaml
+          kubectl get pod 

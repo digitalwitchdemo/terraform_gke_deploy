@@ -8,6 +8,11 @@ resource "google_compute_network" "main" {
   delete_default_routes_on_create = false
 }
 
+
+
+
+
+
 # Create Subnet
 # ==============
 resource "google_compute_subnetwork" "private" {
@@ -26,6 +31,9 @@ resource "google_compute_subnetwork" "private" {
     ip_cidr_range = "10.52.0.0/20"
   }
 }
+
+
+
 
 # Create Router 
 #================
@@ -54,6 +62,10 @@ resource "google_compute_router_nat" "nat" {
 
   nat_ips = [google_compute_address.nat.self_link]
 }
+
+
+
+
 
 # Assign Nat an external ip address
 #====================================
